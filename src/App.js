@@ -11,7 +11,8 @@ export default class App extends Component {
     super()
     this.state = {
       favorites: [],
-      chatAbout: ''
+      chatAbout: '',
+      isScrolling: true
     }
   }
 
@@ -32,6 +33,10 @@ export default class App extends Component {
     this.setState({ chatAbout: character })
   }
 
+  resetOnScroll = () => {
+    this.setState({ isScrolling: false })
+  }
+
   render() {
     console.log(this.state.inputMessage && this.state.allMessages)
     return (
@@ -41,8 +46,8 @@ export default class App extends Component {
           exact
           render={() => (
             <div>
-              <div className="description">
-                <p>
+              <div className="description" onScroll={this.resetOnScroll}>
+                <p className={this.state.isScrolling ? null : 'stop'}>
                   The Star Wars franchise depicts the adventures of characters
                   "A long time ago in a galaxy far, far away...." in which
                   humans and many species of aliens (often humanoid) co-exist
